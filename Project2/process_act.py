@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 f = open('combine_act.txt', 'r')
 g = open('processed_act.txt', 'w')
 num = 0

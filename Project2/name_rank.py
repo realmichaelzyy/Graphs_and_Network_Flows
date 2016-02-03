@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import string
 f = open("actSort.txt", 'r')
 g = open("processed_act.txt", 'r')

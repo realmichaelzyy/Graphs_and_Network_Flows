@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import string
 f = open("rating_num.txt", 'r')
 g = open("node3_sort.txt", 'r')

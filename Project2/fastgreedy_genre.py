@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 f = open("movie_genre.txt", 'r')
 g = open("comm7.txt", 'r')
 q = open("comm7_genre.txt", 'w')

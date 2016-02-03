@@ -1,11 +1,12 @@
 #!/usr/bin/python
-import string
 # Batman v Superman: Dawn of Justice (2016)      Sci-Fi
 # nodeID:894353
 # Mission: Impossible - Rogue Nation (2015)      Thriller
 # nodeID:779750
 # Minions (2015)     Family
 # nodeID:763762
+
+import string
 f = open("node3_sel.txt", 'r')
 q = open("node3_sort.txt", 'w')
 s = []

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import string
 f = open("page_rank.txt", 'r')
 q = open("actSort.txt", 'w')

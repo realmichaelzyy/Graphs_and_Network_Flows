@@ -1,4 +1,6 @@
+#!/usr/bin/python
 # Refer to edge generation algorithm in GitHub
+
 import re
 f = open("processed_act.txt", "r")
 g = open("graph_act.txt", "w")

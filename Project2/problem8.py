@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import string
 f = open("name_rank.txt", 'r')
 g = open("director_100.txt", 'r')

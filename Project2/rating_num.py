@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import string
 f = open("movie_genre.txt", 'r')
 g = open("movie_rating.txt", 'r')

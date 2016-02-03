@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 f = open("movie_genre.txt", 'r')
 q = open("genre_cal.txt", 'w')
 dic = {}
