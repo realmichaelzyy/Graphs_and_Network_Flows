@@ -16,7 +16,7 @@ Deg <- degree(g)
 getwd()
 jpeg("problem1_degree.jpg",width=600,height=500)
 h <- hist(Deg, breaks=seq(-0.5, by=1 , length.out=max(Deg)+2),freq=F,
-          main='Degree Distribution', xlab='Degree',col="lightgreen") 
+          main='Degree Distribution', xlab='Degree',col="lightgreen")
 dev.off()
 
 # Curve Fitting
@@ -78,7 +78,7 @@ V(g)$number <- 1:vcount(g)
 subGraph <- delete.vertices(g, nonSubGraphNodes)
 subGraphNodes <- sort(subGraphNodes)
 
-#### plotting personal network   
+#### plotting personal network
 vertexSizeVector = rep(2,vcount(subGraph))
 vertexSizeVector[V(subGraph)$number==core] = 5
 
@@ -182,23 +182,23 @@ nodeID_find <- function(g, vertex)
   temp
 }
 
-disp_find <- function(u,v,g) 
+disp_find <- function(u,v,g)
 {
   disp <- 0
   commonUV <- commNeib_find(u, v, g)
   gNoUV <- delete.vertices(g, c(u, v))
-  
-  for(s in commonUV) 
+
+  for(s in commonUV)
   {
-    for(t in commonUV) 
+    for(t in commonUV)
     {
-      if(s != t && s!=u && s!=v && t!=u && t!=v) 
+      if(s != t && s!=u && s!=v && t!=u && t!=v)
       {
         short_d<-get.shortest.paths(gNoUV,from=s,to=t)
         if(length(short_d$vpath[[1]])>0){
           d<-length(short_d$vpath[[1]])-1
           disp <- disp + d}
-        
+
       }
     }
   }
@@ -206,25 +206,25 @@ disp_find <- function(u,v,g)
 }
 
 dispEmb_find <- function(g,coreNode){
-  
+
   dHigh = 0;
   dNode = 0;
   rHigh = 0;
   rNode = 0;
   eHigh = 0;
   eNode = 0;
-  
+
   pnOfU <- perNet_find(coreNode,g)
   u <- nodeID_find(pnOfU, coreNode)
-  
+
   nodes <- V(pnOfU)
   for(v in nodes){
     if(v == u)
       next
-    
+
     dip = disp_find(u,v,g)
     embd = embd_find(u,v,g)
-    
+
     if (embd > 0)
     {
       rt = dip/embd
@@ -234,7 +234,7 @@ dispEmb_find <- function(g,coreNode){
         rHigh=rt;
       }
     }
-    
+
     if (dip > dHigh)
     {
       dNode = v;
@@ -245,17 +245,17 @@ dispEmb_find <- function(g,coreNode){
       eNode = v
       eHigh=embd;
     }
-    
+
   }
-  
+
   if (dNode > 0)
   {
     # community detection
     fc = fastgreedy.community(pnOfU); sizes(fc)
     mfc = membership(fc)
-    
+
     sizeVet = rep(3, length(V(pnOfU)));
-    sizeVet[dNode] = 8;  
+    sizeVet[dNode] = 8;
     colEd = rep(8, length(E(pnOfU)));
     colEd[which(get.edgelist(pnOfU,name=F)[,1] == dNode | get.edgelist(pnOfU,name=F)[,2] == dNode)] = 3;
     E(pnOfU)$color = colEd;
@@ -266,20 +266,20 @@ dispEmb_find <- function(g,coreNode){
     plot(pnOfU, vertex.label= NA, vertex.color=mfc,vertex.size=sizeVet, edge.width = widEd,mark.groups = by(seq_along(mfc), mfc, invisible),main="Maximum Dispersion");
     dev.off();
   }
-  
+
   else
   {
     print (paste(c("No high Disp node", toString(coreNode)), collapse=" "));
   }
-  
-  
+
+
   if (eNode > 0)
   {
     # community detection
     fc = fastgreedy.community(pnOfU); sizes(fc)
     mfc = membership(fc)
     sizeVet = rep(3, length(V(pnOfU)));
-    sizeVet[eNode] = 8;  
+    sizeVet[eNode] = 8;
     colEd = rep(8, length(E(pnOfU)));
     colEd[which(get.edgelist(pnOfU,name=F)[,1] == eNode | get.edgelist(pnOfU,name=F)[,2] == eNode)] = 3;
     E(pnOfU)$color = colEd;
@@ -294,16 +294,16 @@ dispEmb_find <- function(g,coreNode){
   {
     print (paste(c("No high Emb node", toString(coreNode)), collapse=" "));
   }
-  
-  
+
+
   if (rNode > 0)
   {
-    
+
     fc = fastgreedy.community(pnOfU); sizes(fc)
     mfc = membership(fc)
-    
+
     sizeVet = rep(3, length(V(pnOfU)));
-    sizeVet[rNode] = 8;  
+    sizeVet[rNode] = 8;
     colEd = rep(8, length(E(pnOfU)));
     colEd[which(get.edgelist(pnOfU,name=F)[,1] == rNode | get.edgelist(pnOfU,name=F)[,2] == rNode)] = 3;
     E(pnOfU)$color = colEd;
@@ -318,7 +318,7 @@ dispEmb_find <- function(g,coreNode){
   {
     print (paste(c("No high Disp node", toString(coreNode)), collapse=" "));
   }
-  
+
 }
 
 dispVec <- c();
@@ -328,17 +328,17 @@ for(coreNode in core_nodes)
 {
   pnOfU <- perNet_find(coreNode,g)
   u <- nodeID_find(pnOfU, coreNode)
-  
+
   nodes <- V(pnOfU)
   for(v in nodes){
     if(v == u)
       next
-    
+
     embd = embd_find(u,v,g)
     dip = disp_find(u,v,g)
     embVec <- c(embVec, embd);
     dispVec <- c(dispVec, dip);
-    
+
   }
 }
 
@@ -379,10 +379,10 @@ for (core_i in 1:length(coreNodes))
       ratio <- dgr_min / length (communityGraph)
       ratio1<-ecount(communityGraph)/vcount(communityGraph)
       ratio_vector=c(ratio_vector,ratio1)
-    }    
+    }
   }
   community_acquintance_number=which.min(ratio_vector)
-  community_close_friends_number=which.max(ratio_vector) 
+  community_close_friends_number=which.max(ratio_vector)
   non_acquintance_communityNodes <- V(subGraph)$name[which(fg$membership!=community_acquintance_number)]
   non_close_friends_communityNodes <- V(subGraph)$name[which(fg$membership!=community_close_friends_number)]
   community_acquintanceGraph <- delete.vertices(subGraph, non_acquintance_communityNodes )
@@ -413,7 +413,7 @@ for (i in 1:length(egoNodeId)){
   circlesFile <- paste(filesPath , egoNodeIdnew[[i]] , ".circles" , sep="")
   fileConnection <- file(circlesFile , open="r")
   lines <- readLines(fileConnection)
-  close(fileConnection) 
+  close(fileConnection)
   if(length(lines)>2){
     g2Raw <- read.graph(edgelistFile , format = "ncol" , directed=TRUE)
     circles <-list()
@@ -442,8 +442,8 @@ for (i in 1:length(egoNodeId)){
       for(k in 1:length(circles[[m]])){
         for(l in 1:length(wtc_mem)){
           if((attributes(wtc_mem[l])$name)==circles[[m]][k]){
-            circle_com[[4]][wtc_mem[l]]<-  circle_com[[4]][wtc_mem[l]]+1 
-            circle_com[[5+m]][wtc_mem[l]] <- circle_com[[5+m]][wtc_mem[l]]+1 
+            circle_com[[4]][wtc_mem[l]]<-  circle_com[[4]][wtc_mem[l]]+1
+            circle_com[[5+m]][wtc_mem[l]] <- circle_com[[5+m]][wtc_mem[l]]+1
           }
         }
       }
@@ -454,13 +454,13 @@ for (i in 1:length(egoNodeId)){
       for(k in 1:length(circles[[m]])){
         for(l in 1:length(imc_mem)){
           if((attributes(imc_mem[l])$name)==circles[[m]][k]){
-            circle_com[[5]][imc_mem[l]]<-  circle_com[[5]][imc_mem[l]]+1 
-            circle_com[[5+m+length(lines)]][imc_mem[l]] <- circle_com[[5+m+length(lines)]][imc_mem[l]]+1 
+            circle_com[[5]][imc_mem[l]]<-  circle_com[[5]][imc_mem[l]]+1
+            circle_com[[5+m+length(lines)]][imc_mem[l]] <- circle_com[[5+m+length(lines)]][imc_mem[l]]+1
           }
-          
-        } 
+
+        }
       }
-      
+
     }
     circle_comsum[[comsum_index]] <- circle_com
   }
