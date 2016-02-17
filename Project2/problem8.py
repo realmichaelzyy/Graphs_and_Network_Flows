@@ -81,8 +81,7 @@ for line in h.readlines():
 
 for i in xrange(len(tag_rating)):
     # line="%.1f %d %d\n"%(tag_rating[i],tag_actRank1[i],tag_dir[i])
-    line = "%.1f %.10f %.10f %.10f %.10f %.10f %d\n" %
-    (tag_rating[i], tag_actRank1[i], tag_actRank2[i],
+    line = "%.1f %.10f %.10f %.10f %.10f %.10f %d\n" % (tag_rating[i], tag_actRank1[i], tag_actRank2[i],
      tag_actRank3[i], tag_actRank4[i], tag_actRank5[i], tag_dir[i])
     q.write(line)
 
